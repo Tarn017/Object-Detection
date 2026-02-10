@@ -61,7 +61,67 @@ aufnahme(url='http://172.20.10.3', interval=1, ordner='Objekte')
 
 # 3. Daten Annotieren
 Die gesammelten Daten müssen im nächsten Schritt richtig gelabelt werden. Hierfür wird im Folgenden Roboflow verwendet: [Roboflow](https://roboflow.com/)  
-Lege einen Account auf der Seite an
+Lege einen Account auf der Seite an und erstelle einen Workspace. Gehe nun auf der linken Seite auf *Projects* und erstelle ein neues Projekt. Wähle für *Project Name* und *Annotation Group* einen beliebigen Namen und als *Project Type* Object Detection. Die Folgende Anleitung wird sich auf den traditionellen Modus beziehen, es kann jedoch auch gerne der *rapid*-Modus ausprobiert werden.  
+Nun müssen lediglich die Punkte in der linken Leiste nacheinander abgearbeitet werden:  
+1. Ladet den Ordner mit den von euch gesammelten Daten hoch und drückt *Safe & Continue*
+2. Annotiert die Daten. Zieht dafür einfach mit der Maus ein Rechteck über das entsprechende Objekt im Bild und gebt diesem das richtige Label. Ist kein Objekt auf dem Bild zu sehen, so muss dies auf der rechten Seite ausgewählt werden. Es kann gerne das Auto-Labeling ausprobiert werden, jedoch sollte danach jedes Bild noch einmal überprüft werden.
+3. Fügt die annotierten Bilder dem Datensatz hinzu mit der method *Add All Images To Training Set*
+4. Geht nun in der linken Leiste auf *Versions*.
+5. Wählt unter *Train/Test Split* das Feld *Rebalance* aus und stellt die von euch gewünschte Verteilung ein. Wichtig ist, dass für train, val und test mindestens ein Bild vorhanden ist. Klickt anschließend auf *continue*.
+6. Unter Preprocessing können die Bilder auf ein von euch gewünschtes Format gerisized werden. Ein quadratisches Format ist hierbei empfohlen. Klickt anschließend auf *continue*.
+7. Unter Augmentation können nun verschiedene Augmentation-Methoden ausgewählt und hinzugefügt werden. Klickt anschließend auf *continue*.
+8. Im letzten Schritt unter Create kann nun ausgewählt werden, wie groß der durch die künstlich veränderten Bilder erweiterte Datensatz werden soll. Klickt anschließend *create*.
+9. Kliecke nun auf *Download Dataset* und wähle als Format *YOLOv8* und unten *Show Download Code*.
+10. Kopiere den angezeigten Code in dein main-Skript (ohne das pip-install oben).
+
+# 4. Neuronales Netz Trainieren
+Nutzt für das Training des Netzes die Funktion `training_detection()`. Kopiert diese dafür unter den Download-Code eures Datensatzes.  
+`training_detection(dataset, epochen, img_size)`:  
+*dataset* wurde bereits durch den Download-Code definiert-
+*epochen* entspricht der Anzahl an Epochen die das Netz trainiert werden soll.
+*img_size* entspricht der Bildgröße auf die geresized werden soll.  
+**Beispiel:**  
+```python
+from roboflow import Roboflow
+from project_det import training_detection
+
+rf = Roboflow(api_key="Lbp6tBzjKuXWSq7ndLgS")
+project = rf.workspace("karlsruher-institut-fr-technologie-7bdnc").project("zml_detect-pemh9")
+version = project.version(1)
+dataset = version.download("yolov8")
+
+training_detection(dataset, epochen=20, img_size=(640,640))
+```
+
+**Training Auswerten:**  
+Nach dem Training wird ein Ordner *runs* mit den Ergebnissen angelgt. Werden mehrere Modelle trainiert, so befnden diese sich ebenfalls in dem Ordner (train, train2, ...). Wähle nun den entsprechenden Sub-Ordner des Trainings-Runs, den du dir anschauen möchtest. Unter *weights* sind die Gewichte des Modells gespeichert und daneben noch verschiedene Metriken zu dem Training, die Aufschluss zu der Performanz des Modells geben.
+
+# 5. Neuronales Netz Testen
+Mit dieser Methode kann das trainierte Netz live über die EspCam getestet werden. Es wir alle paar Sekunden ein Bild aufgenommen und Object Detection darauf ausgeführt. Neben der reinen Vorhersage wird das durch das Modell annotierte Bild als *latest_capture_annotated.jpg* gespeichert. 
+`testen_detection(url, model, conf_thresh, interval, img_size)`:  
+*url* ensrpicht der URL der EspCam.
+*model* enspricht dem Pfad zu dem Modell welches für die Vorhersage genutzt werden soll. Hiermit ist der zuvor erähnte Pfad zu den Gewichten gemeint. Wichtig ist hierbei das *train* richtig anzupassen (siehe Beispiel).
+*conf_thresh* entspricht der Schwelle, ab welcher Sicherheit ein Ojekt erkannt wird (Wert zwischen 0 und 1).
+*interval* enspricht dem Abstand in Sekunden bis zur Aufnahme des nächsten Bildes.
+*img_size* entspricht der Bildgröße.
+
+**Beispiel:**  
+```python
+from project_det import testen_detection
+
+testen_detection(url='http://192.168.1.100',
+                 model='runs/detect/train16/weights/best.pt',
+                 conf_thresh=0.8,
+                 interval=10,
+                 img_size=(640,640))
+```
+
+# 6. Arduino Microcontroller Einrichten
+
+
+
+
+
 
 
 
