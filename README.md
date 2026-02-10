@@ -46,18 +46,22 @@ Gehe anschließend in deiner IDE unten auf das Terminal und installiere alle Pak
 
 **Los gehts:**  
 Beim einrichten der EspCam wurde eine URL ausgegeben. Diese wird für die nächsten Schritte benötigt.  
-Geht in euer Hauptskrip und fügt ganz oben die Zeile `from project import aufnahme` ein. Als nächstes fügt ihr darunter `if __name__ == "__main__":` ein. Alles was hiernah kommt muss nach rechts eingerückt werden. Nun kann `aufnahme` genutzt werden um Bilddaten zu sammeln. Sie nimmt alle paar Sekunden ein Bild auf und speichert dieses automatisch in einer benannten Klasse. Die Funktion ist folgendermaßen aufgebaut:  
-`aufnahme(url, interval, klasse, ordner)`: *url* entspricht der URL von der EspCam, diese kann einfach kopiert werden. Wichtig ist nur, dass sie in Anführungszeichen steht. *interval* entspricht der Frequenz, in der Bilder aufgenommen werden (1 bspw. für alle 1 Sekunden). *klasse* sollte dem Klassenname entsprechen, für dessen Klasse gerade Daten gesammelt werden. Für *ordner* kann ebenfalls ein beliebiger Name gewählt werden. Es wird ein Ordner mit selbigem Namen automatisch erstellt in dem die Klassen und Bilder gespeichert werden.
+Geht in euer Hauptskrip und fügt ganz oben die Zeile `from project_det import aufnahme` ein. Nun kann `aufnahme` genutzt werden um Bilddaten zu sammeln. Sie nimmt alle paar Sekunden ein Bild auf und speichert dieses automatisch im benannten Ordner. Dieser wird automatisch erstellt und muss daher nicht extra angelegt werden. Die uafgenommenen Bilder dürfen mehrere verschiedene Objekte gleichzeitig oder auch kein Objekt enthalten. Die Funktion ist folgendermaßen aufgebaut:  
+`aufnahme(url, interval, ordner)`:  
+*url* entspricht der URL von der EspCam, diese kann einfach kopiert werden. Wichtig ist nur, dass sie in Anführungszeichen steht.  
+*interval* entspricht der Frequenz, in der Bilder aufgenommen werden (1 bspw. für alle 1 Sekunden).  
+*ordner* kann als ein beliebiger Name gewählt werden. Es wird ein Ordner mit selbigem Namen automatisch erstellt in dem die Klassen und Bilder gespeichert werden.
 
 Hier ein Beispiel. Wichtig ist, dass Anführungszeichen übernommen werden, dort wo sie gebraucht werden:  
 ```python
-from project import CNN, aufnahme, testen_classification, neural_network_classification, FFN
+from project_det import aufnahme
 
-if __name__ == "__main__":
-    aufnahme(url='http://172.20.10.3', interval=1, klasse='noise', ordner='Objekte')
+aufnahme(url='http://172.20.10.3', interval=1, ordner='Objekte')
 ```
 
-Zum starten kann nun einfach das Skript ausgeführt werden. Für jede Klasse, für die Daten gesammelt werden sollen, muss das Skript separat ausgeführt werden. Ein umbenennen von *klasse* ist während das Skript läuft nicht möglich.
+# 3. Daten Annotieren
+Die gesammelten Daten müssen im nächsten Schritt richtig gelabelt werden. Hierfür wird im Folgenden Roboflow verwendet: [Roboflow](https://roboflow.com/)  
+Lege einen Account auf der Seite an
 
-Eine genauere Beschreibung der einzelnen Schritte findet ihr unter [Getting Started With ESP32-CAM](https://lastminuteengineers.com/getting-started-with-esp32-cam/)
+
 
