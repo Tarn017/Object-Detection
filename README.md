@@ -40,7 +40,7 @@ Ladet das folgende Skript herunter und kopiert es in euer Python-Projekt sodass 
 **Abhängigkeiten installieren:**
 Lade die folgende Datei herunter und kopiere sie in deinen Projektordner: [requirements_det.txt](https://github.com/Tarn017/Object-Detection/blob/main/src/requirements_det.txt)
 
-Gehe anschließend in deiner IDE unten auf das Terminal und installiere alle Pakete mit `pip install -r requirements_class.txt`:
+Gehe anschließend in deiner IDE unten auf das Terminal und installiere alle Pakete mit `pip install -r requirements_det.txt`:
 
 ![requirements Screenshot](https://raw.githubusercontent.com/Tarn017/Object-Detection/main/assets/requirements.png)
 
