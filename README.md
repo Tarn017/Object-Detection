@@ -118,7 +118,15 @@ testen_detection(url='http://192.168.1.100',
 
 # 6. Arduino Microcontroller Einrichten
 
+Lade das folgender Arduino-Skript herunter und öffne es in der Arduino-IDE: [NanoEsp_detection.ino](https://github.com/Tarn017/Object-Classification-using-ESP-Cam/blob/main/files/NanoEsp_classification.ino)
 
+Füge die passenden Wlan-Daten ein:
+
+![wlan](https://raw.githubusercontent.com/Tarn017/Object-Classification-using-ESP-Cam/main/assets/wlan.png)
+
+Führe das Skript im nächsten Schritt aus. Öffne anschließend den Serial Monitor. Auf disem sollte nun die IP Adresse des Microcontrollers ausgegeben werden. Ist dort nichts zu sehen, drücke einmal den Reset-Button auf dem Microcontroller.
+
+![arduino_ip](https://raw.githubusercontent.com/Tarn017/Object-Classification-using-ESP-Cam/main/assets/arduino_ip.png)
 
 
 
