@@ -33,12 +33,12 @@ Ziel dieser Anleitung ist es ein neuronales Netz für Object Detection zu traini
 
 **Einrichten:**  
 Erstellt in eurer Python IDE ein neues Projekt und legt ein nues Haupt-File an (bspw. main.py).  
-Ladet das folgende Skript herunter und kopiert es in euer Python-Projekt sodass es direkt neben eurem Haupt-File zu sehen ist: [project.py](https://github.com/Tarn017/Object-Detection/blob/main/src/project.py)
+Ladet das folgende Skript herunter und kopiert es in euer Python-Projekt sodass es direkt neben eurem Haupt-File zu sehen ist: [project_det.py](https://github.com/Tarn017/Object-Detection/blob/main/src/project.py)
 
 ![project.py Screenshot](https://raw.githubusercontent.com/Tarn017/Object-Detection/main/assets/project_py.png)
 
 **Abhängigkeiten installieren:**
-Lade die folgende Datei herunter und kopiere sie in deinen Projektordner: [requirements_det.txt](https://github.com/Tarn017/Object-Detection/blob/main/src/requirements_class.txt)
+Lade die folgende Datei herunter und kopiere sie in deinen Projektordner: [requirements_det.txt](https://github.com/Tarn017/Object-Detection/blob/main/src/requirements_det.txt)
 
 Gehe anschließend in deiner IDE unten auf das Terminal und installiere alle Pakete mit `pip install -r requirements_class.txt`:
 
@@ -118,7 +118,7 @@ testen_detection(url='http://192.168.1.100',
 
 # 6. Arduino Microcontroller Einrichten
 
-Lade das folgender Arduino-Skript herunter und öffne es in der Arduino-IDE: [NanoEsp_detection.ino](https://github.com/Tarn017/Object-Classification-using-ESP-Cam/blob/main/files/NanoEsp_classification.ino)
+Lade das folgender Arduino-Skript herunter und öffne es in der Arduino-IDE: [NanoEsp_detection.ino](https://github.com/Tarn017/Object-Classification-using-ESP-Cam/blob/main/files/NanoEsp_detection.ino)
 
 Füge die passenden Wlan-Daten ein:
 
