@@ -33,7 +33,7 @@ Ziel dieser Anleitung ist es ein neuronales Netz für Object Detection zu traini
 
 **Einrichten:**  
 Erstellt in eurer Python IDE ein neues Projekt und legt ein nues Haupt-File an (bspw. main.py).  
-Ladet das folgende Skript herunter und kopiert es in euer Python-Projekt sodass es direkt neben eurem Haupt-File zu sehen ist: [project_det.py](https://github.com/Tarn017/Object-Detection/blob/main/src/project.py)
+Ladet das folgende Skript herunter und kopiert es in euer Python-Projekt sodass es direkt neben eurem Haupt-File zu sehen ist: [project_det.py](https://github.com/Tarn017/Object-Detection/blob/main/src/project_det.py)
 
 ![project.py Screenshot](https://raw.githubusercontent.com/Tarn017/Object-Detection/main/assets/project_py.png)
 
@@ -128,8 +128,22 @@ Führe das Skript im nächsten Schritt aus. Öffne anschließend den Serial Moni
 
 ![arduino_ip](https://raw.githubusercontent.com/Tarn017/Object-Detection/main/assets/arduino_ip.png)
 
+# 7. Neuronales Netz Deployen
+Im nächsten und letzten Schritt, werden Kamera, neuronales Netz und Microcontroller nun verbunden. Das Programm welches dafür gleich genutzt wird, baut dafür eine Verbindung sowohl zu Kamera als auch zu Microcontroller auf. Wird nun ein Signal vom Microcontroller gesendet (aktuell ist er so programmiert, dass ein Signal gesendet wird, wenn der an Pin D2 angeschlossene Knopf gedrückt wird, kann aber beliebig abgeändert werden), dann leitet der Laptop/PC dieses weiter an die EspCam, die ein Bild aufnimmt. Dieses wird zurück an den Laptop gesendet, der darauf Object Detection durchführt. Das Ergebnis wird anschließend zurück an den Microcontroller gesendet. Für jedes erkannte Objekt werden das entsprechende Label, Confidence, sowie die Koordinaten der entsprechenden Bounding-Box an den Microcontroller gesendet. Für diese Kommunikation wird das folgende Skript verwendet.  
+`neural_network_detection(url, arduino_ip, model, conf_thresh)`:  
+*url* ensprich der URL der EspCam.
+*arduino_ip* entspricht der IP-Adresse des Arduino-Microcontrollers.
+*model* entspricht dem Pfad zu dem Modell/ den Gewichten die für die Aufgabe verwendet werden sollen.
+*conf_thresh* entspricht der Schwelle, ab welcher Sicherheit ein Ojekt erkannt wird (Wert zwischen 0 und 1).
 
+**Beispiel:**  
+```python
+from project_det import neural_network_detection
 
+neural_network_detection(url='http://192.168.1.100',
+                         arduino_ip='192.168.1.102',
+                         model='runs/detect/train16/weights/best.pt',
+                         conf_thresh=0.4)
+```
 
-
-
+**Wichtig:** Für die richtige Funktionsweise müssen sowohl Kamera als auch Microcontroller bereits ausgeführt sein und aktiv laufen. Das Skript muss nun ausgeführt werden. Achte dabei darauf, dass sich alle Geräte im selben Wlan befinden. Ist alles korrekt, wird auf der Konsole in der Arduino-IDE Client verbunden. ausgegeben.
