@@ -1,0 +1,4 @@
+requests
+ultralytics
+Pillow
+roboflow
