@@ -11,7 +11,7 @@ const char* ssid = "TP-Link_92AC";
 const char* password = "73125785";
 
 //const char *ssid = "Vodafone-AC24";
-//const char *password = "fc6FkCHycEL2qX3n";
+//const char *password = "fc6FkChjksebfwX3n";
 
 const uint16_t port = 12345; // Portnummer für die Verbindung
 
