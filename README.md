@@ -79,7 +79,10 @@ Nutzt für das Training des Netzes die Funktion `training_detection()`. Kopiert 
 `training_detection(dataset, epochen, img_size)`:  
 *dataset* wurde bereits durch den Download-Code definiert-
 *epochen* entspricht der Anzahl an Epochen die das Netz trainiert werden soll.
-*img_size* entspricht der Bildgröße auf die geresized werden soll.  
+*img_size* entspricht der Bildgröße auf die geresized werden soll, nur eine Zahl angeben, da Bild quadratisch sein sollte.  
+*lr_init* ist die anfängliche Lernrate mit der das Modell trainiert wird  
+*lr_final* ist die finale Lernrate am Ende vom Training. Wird diees gleich der initialen Lernrate gewählt, so verändert sich diese nicht. Falls die Lernrate während des Trainings abnehmen soll, ist diese kleiner zu wählen.  
+*augmentation* hat die Form [Flip, Rotation, Helligkeit, Farbton, Sättigung]. Jeder dieser Werte muss zwischen 0 und 1 liegen. flip ist die Wahrscheinlichkeit, dass ein Bild gespiegelt wird, rotate gibt die Stärke einer zufälligen Rotation an (1 für stark), Helligkeit, Farbton, Sättigung geben an wie stark die jeweiligen Werte maximal verändert werden dürfen.  
 **Beispiel:**  
 ```python
 from roboflow import Roboflow
@@ -90,7 +93,13 @@ project = rf.workspace("karlsruher-institut-fr-technologie-7bdnc").project("zml_
 version = project.version(1)
 dataset = version.download("yolov8")
 
-training_detection(dataset, epochen=20, img_size=(640,640))
+training_detection(dataset,
+                   epochen=4,
+                   img_size=640,
+                   lr_init=0.01,
+                   lr_final=0.0001,
+                   augmentation=[0.5,0,0.4,0.015,0.7],
+                   )
 ```
 
 **Training Auswerten:**  
