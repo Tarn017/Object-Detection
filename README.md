@@ -122,7 +122,7 @@ testen_detection(url='http://192.168.1.100',
                  model='runs/detect/train16/weights/best.pt',
                  conf_thresh=0.8,
                  interval=10,
-                 img_size=(640,640))
+                 img_size=640)
 ```
 
 # 6. Arduino Microcontroller Einrichten
